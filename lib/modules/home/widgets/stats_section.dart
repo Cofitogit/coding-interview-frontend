@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/exchange_provider.dart';
-import 'info_row.dart';
+import '../helpers/_index.dart';
+import '../models/_index.dart';
+import '../providers/_index.dart';
+import '_index.dart';
 
 class StatsSection extends StatelessWidget {
   const StatsSection({super.key});
@@ -10,8 +12,25 @@ class StatsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ExchangeProvider exchange = context.watch<ExchangeProvider>();
-    final String? toCurrency = exchange.to?.code;
-    final bool hasData = exchange.recommendation != null;
+    final ExchangeState state = exchange.exchangeState;
+    final String? toCurrency = state.to?.code;
+    final bool hasData = state.hasRecommendation;
+
+    // Calcular valores usando los helpers
+    final int exchangeType = ExchangeCalculator.determineExchangeType(
+      from: state.from,
+      to: state.to,
+    );
+    final double estimatedRate = ExchangeCalculator.getEstimatedRate(state.recommendation);
+    final double receiveAmount = ExchangeCalculator.calculateReceiveAmount(
+      recommendation: state.recommendation,
+      amount: state.amountValue,
+      isCryptoToFiat: exchangeType == 0,
+    );
+    final String estimatedTime = ExchangeCalculator.formatEstimatedTime(
+      recommendation: state.recommendation,
+      decimals: 1,
+    );
 
     return AnimatedSize(
       duration: const Duration(milliseconds: 300),
@@ -27,17 +46,17 @@ class StatsSection extends StatelessWidget {
                   children: <Widget>[
                     InfoRow(
                       label: 'Tasa estimada',
-                      value: exchange.estimatedRate.toStringAsFixed(2),
+                      value: estimatedRate.toStringAsFixed(2),
                       suffix: toCurrency ?? '',
                     ),
                     InfoRow(
                       label: 'Recibirás',
-                      value: exchange.receiveAmount.toStringAsFixed(2),
+                      value: receiveAmount.toStringAsFixed(2),
                       suffix: toCurrency ?? '',
                     ),
                     InfoRow(
                       label: 'Tiempo estimado',
-                      value: exchange.estimatedTimeFormatted,
+                      value: estimatedTime,
                       suffix: 'Min',
                     ),
                   ],

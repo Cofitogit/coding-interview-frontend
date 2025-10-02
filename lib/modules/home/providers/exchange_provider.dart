@@ -2,10 +2,9 @@ import '../../../core/models/currency_catalog.dart';
 import '../../../core/models/currency_option.dart';
 import '../../../core/models/exchange_recommendation.dart';
 import '../../../core/providers/base_provider.dart';
-import '../helpers/exchange_calculator.dart';
-import '../helpers/exchange_validator.dart';
-import '../models/exchange_state.dart';
-import '../services/exchange_service.dart';
+import '../helpers/_index.dart';
+import '../models/_index.dart';
+import '../services/_index.dart';
 class ExchangeProvider extends BaseProvider {
   ExchangeProvider({ExchangeService? exchangeService}) : _exchangeService = exchangeService ?? ExchangeService() {
     _init();
