@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../models/currency_option.dart';
 import '../theme/app_theme.dart';
@@ -59,7 +58,6 @@ class CurrencySelectorSheet extends StatelessWidget {
                     ),
                     onTap: () {
                       onSelected?.call(option);
-                      context.pop();
                     },
                   );
                 },
