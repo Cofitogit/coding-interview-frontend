@@ -1,0 +1,14 @@
+targets:
+  $default:
+    builders:
+      freezed:
+        options:
+          copy_with: true
+          equal: true
+          map: false
+          to_json: false
+          from_json: false
+      
+      riverpod_generator:
+        options:
+
