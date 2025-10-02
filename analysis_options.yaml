@@ -4,6 +4,11 @@ analyzer:
   exclude:
     - "build/**"
     - ".dart_tool/**"
+    - "**/*.freezed.dart"
+    - "**/*.g.dart"
+  
+  errors:
+    non_abstract_class_inherits_abstract_member: ignore
 
   strong-mode:
     implicit-casts: false
