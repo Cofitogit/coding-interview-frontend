@@ -2,21 +2,20 @@ import 'dart:async';
 
 import '../../../core/providers/base_provider.dart';
 import '../../../core/theme/app_theme.dart';
+import '../models/home_state.dart';
 
 class HomeProvider extends BaseProvider {
   HomeProvider() {
     _init();
   }
 
-  double _heroSize = AppTheme.homeHeroInitialSize;
-  bool _showWelcome = true;
-  bool _showContent = false;
+  HomeState _homeState = const HomeState(heroSize: AppTheme.homeHeroInitialSize);
 
-  double get heroSize => _heroSize;
+  HomeState get homeState => _homeState;
 
-  bool get showWelcome => _showWelcome;
-
-  bool get showContent => _showContent;
+  double get heroSize => _homeState.heroSize;
+  bool get showWelcome => _homeState.showWelcome;
+  bool get showContent => _homeState.showContent;
 
   Future<void> _init() async {
     markLoading();
@@ -25,12 +24,11 @@ class HomeProvider extends BaseProvider {
     if (isDisposed) {
       return;
     }
-    _heroSize = AppTheme.homeHeroFinalSize;
-    notifyListeners();
-
-    _showWelcome = false;
-    notifyListeners();
     
+    _updateState(_homeState.copyWith(heroSize: AppTheme.homeHeroFinalSize));
+
+    _updateState(_homeState.copyWith(showWelcome: false));
+
     await Future<void>.delayed(AppTheme.homeWelcomeDuration);
     if (isDisposed) {
       return;
@@ -40,8 +38,13 @@ class HomeProvider extends BaseProvider {
     if (isDisposed) {
       return;
     }
-    _showContent = true;
-    notifyListeners();
+
+    _updateState(_homeState.copyWith(showContent: true));
     markInitialized();
+  }
+
+  void _updateState(HomeState newState) {
+    _homeState = newState;
+    notifyListeners();
   }
 }
