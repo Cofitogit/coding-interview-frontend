@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../modules/home/screens/home_screen.dart';
+import '../../features/exchange/presentation/screens/exchange_screen.dart';
 
-/// Centralized router configuration with shared navigator key.
 class AppRouter {
   AppRouter._();
 
@@ -11,20 +10,19 @@ class AppRouter {
 
   static final GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
-    initialLocation: HomeRoute.path,
-    routes: <GoRoute>[HomeRoute.route],
+    initialLocation: ExchangeRoute.path,
+    routes: <GoRoute>[ExchangeRoute.route],
   );
 }
 
-/// Route definitions for the home module.
-class HomeRoute {
-  HomeRoute._();
+class ExchangeRoute {
+  ExchangeRoute._();
 
   static const String path = '/';
 
   static final GoRoute route = GoRoute(
     path: path,
-    name: 'home',
-    builder: (BuildContext context, GoRouterState state) => const HomeScreen(),
+    name: 'exchange',
+    builder: (BuildContext context, GoRouterState state) => const ExchangeScreen(),
   );
 }
