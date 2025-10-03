@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../../core/models/currency_option.dart';
-import '../../../../core/models/exchange_recommendation.dart';
+import '../../../exchange/domain/entities/exchange_rate_entity.dart';
 
 part 'exchange_state.freezed.dart';
 
@@ -11,7 +11,7 @@ class ExchangeState with _$ExchangeState {
     required CurrencyOption? toCurrency,
     @Default('') String amount,
     @Default(false) bool isLoading,
-    ExchangeRecommendationSummary? recommendation,
+    ExchangeRateEntity? recommendation,
     String? errorMessage,
   }) = _ExchangeState;
 }
@@ -66,7 +66,7 @@ extension ExchangeStateX on ExchangeState {
     if (recommendation == null) {
       return '--';
     }
-    return recommendation!.fiatToCryptoRate.toStringAsFixed(2);
+    return recommendation!.rate.toStringAsFixed(2);
   }
 
   /// Tiempo estimado formateado

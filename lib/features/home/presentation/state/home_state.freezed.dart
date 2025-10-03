@@ -143,8 +143,8 @@ return $default(_that.heroSize,_that.showWelcome,_that.showContent);case _:
 /// @nodoc
 
 
-class _HomeState extends HomeState {
-  const _HomeState({required this.heroSize, this.showWelcome = true, this.showContent = false}): super._();
+class _HomeState implements HomeState {
+  const _HomeState({required this.heroSize, this.showWelcome = true, this.showContent = false});
   
 
 @override final  double heroSize;

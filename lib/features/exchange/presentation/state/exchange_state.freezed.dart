@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ExchangeState {
 
- CurrencyOption? get fromCurrency; CurrencyOption? get toCurrency; String get amount; bool get isLoading; ExchangeRecommendationSummary? get recommendation; String? get errorMessage;
+ CurrencyOption? get fromCurrency; CurrencyOption? get toCurrency; String get amount; bool get isLoading; ExchangeRateEntity? get recommendation; String? get errorMessage;
 /// Create a copy of ExchangeState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +45,7 @@ abstract mixin class $ExchangeStateCopyWith<$Res>  {
   factory $ExchangeStateCopyWith(ExchangeState value, $Res Function(ExchangeState) _then) = _$ExchangeStateCopyWithImpl;
 @useResult
 $Res call({
- CurrencyOption? fromCurrency, CurrencyOption? toCurrency, String amount, bool isLoading, ExchangeRecommendationSummary? recommendation, String? errorMessage
+ CurrencyOption? fromCurrency, CurrencyOption? toCurrency, String amount, bool isLoading, ExchangeRateEntity? recommendation, String? errorMessage
 });
 
 
@@ -69,7 +69,7 @@ as CurrencyOption?,toCurrency: freezed == toCurrency ? _self.toCurrency : toCurr
 as CurrencyOption?,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as String,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,recommendation: freezed == recommendation ? _self.recommendation : recommendation // ignore: cast_nullable_to_non_nullable
-as ExchangeRecommendationSummary?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as ExchangeRateEntity?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -91,7 +91,7 @@ extension ExchangeStatePatterns on ExchangeState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CurrencyOption? fromCurrency,  CurrencyOption? toCurrency,  String amount,  bool isLoading,  ExchangeRecommendationSummary? recommendation,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CurrencyOption? fromCurrency,  CurrencyOption? toCurrency,  String amount,  bool isLoading,  ExchangeRateEntity? recommendation,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ExchangeState() when $default != null:
 return $default(_that.fromCurrency,_that.toCurrency,_that.amount,_that.isLoading,_that.recommendation,_that.errorMessage);case _:
@@ -112,7 +112,7 @@ return $default(_that.fromCurrency,_that.toCurrency,_that.amount,_that.isLoading
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CurrencyOption? fromCurrency,  CurrencyOption? toCurrency,  String amount,  bool isLoading,  ExchangeRecommendationSummary? recommendation,  String? errorMessage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CurrencyOption? fromCurrency,  CurrencyOption? toCurrency,  String amount,  bool isLoading,  ExchangeRateEntity? recommendation,  String? errorMessage)  $default,) {final _that = this;
 switch (_that) {
 case _ExchangeState():
 return $default(_that.fromCurrency,_that.toCurrency,_that.amount,_that.isLoading,_that.recommendation,_that.errorMessage);case _:
@@ -132,7 +132,7 @@ return $default(_that.fromCurrency,_that.toCurrency,_that.amount,_that.isLoading
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CurrencyOption? fromCurrency,  CurrencyOption? toCurrency,  String amount,  bool isLoading,  ExchangeRecommendationSummary? recommendation,  String? errorMessage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CurrencyOption? fromCurrency,  CurrencyOption? toCurrency,  String amount,  bool isLoading,  ExchangeRateEntity? recommendation,  String? errorMessage)?  $default,) {final _that = this;
 switch (_that) {
 case _ExchangeState() when $default != null:
 return $default(_that.fromCurrency,_that.toCurrency,_that.amount,_that.isLoading,_that.recommendation,_that.errorMessage);case _:
@@ -154,7 +154,7 @@ class _ExchangeState implements ExchangeState {
 @override final  CurrencyOption? toCurrency;
 @override@JsonKey() final  String amount;
 @override@JsonKey() final  bool isLoading;
-@override final  ExchangeRecommendationSummary? recommendation;
+@override final  ExchangeRateEntity? recommendation;
 @override final  String? errorMessage;
 
 /// Create a copy of ExchangeState
@@ -187,7 +187,7 @@ abstract mixin class _$ExchangeStateCopyWith<$Res> implements $ExchangeStateCopy
   factory _$ExchangeStateCopyWith(_ExchangeState value, $Res Function(_ExchangeState) _then) = __$ExchangeStateCopyWithImpl;
 @override @useResult
 $Res call({
- CurrencyOption? fromCurrency, CurrencyOption? toCurrency, String amount, bool isLoading, ExchangeRecommendationSummary? recommendation, String? errorMessage
+ CurrencyOption? fromCurrency, CurrencyOption? toCurrency, String amount, bool isLoading, ExchangeRateEntity? recommendation, String? errorMessage
 });
 
 
@@ -211,7 +211,7 @@ as CurrencyOption?,toCurrency: freezed == toCurrency ? _self.toCurrency : toCurr
 as CurrencyOption?,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as String,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,recommendation: freezed == recommendation ? _self.recommendation : recommendation // ignore: cast_nullable_to_non_nullable
-as ExchangeRecommendationSummary?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as ExchangeRateEntity?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
