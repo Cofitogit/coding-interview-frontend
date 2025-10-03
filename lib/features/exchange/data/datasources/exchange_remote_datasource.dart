@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import '../../../../core/errors/exception_mapper.dart';
+import '../../../../core/errors/exceptions.dart';
 import '../../../../core/models/currency_option.dart';
 import '../../../../core/models/exchange_recommendation.dart';
 import '../../../../core/services/log_service.dart';
@@ -26,13 +28,13 @@ class ExchangeRemoteDataSourceImpl implements ExchangeRemoteDataSource {
     required CurrencyOption to,
     required String amount,
   }) async {
-    try {
+    return ExceptionMapper.wrapDioCall(() async {
       //! Determine the type of exchange
       final int exchangeType = _determineExchangeType(from, to);
+      final bool isCryptoToFiat = exchangeType == 0;
 
       //! Identify crypto and fiat
-      final CurrencyOption crypto =
-          from.kind == CurrencyKind.crypto ? from : to;
+      final CurrencyOption crypto = from.kind == CurrencyKind.crypto ? from : to;
       final CurrencyOption fiat = from.kind == CurrencyKind.fiat ? from : to;
 
       //! Build query params
@@ -51,27 +53,20 @@ class ExchangeRemoteDataSourceImpl implements ExchangeRemoteDataSource {
       );
 
       //! Parse the response
-      final Map<String, dynamic> responseData =
-          response.data as Map<String, dynamic>;
-      final ExchangeRecommendations recommendations =
-          ExchangeRecommendations.fromJson(responseData);
-
+      final Map<String, dynamic> responseData = response.data as Map<String, dynamic>;
+      final ExchangeRecommendations recommendations = ExchangeRecommendations.fromJson(responseData);
       final ExchangeRecommendationSummary? summary = recommendations.toSummary();
 
       if (summary == null) {
-        throw Exception('No se recibieron recomendaciones válidas');
+        logger.w('No offers available for exchange: ${from.id} -> ${to.id}');
+        throw const NoOffersAvailableException(
+          technicalDetails: 'API returned empty recommendations',
+        );
       }
 
-      //! Convert to DTO
-      return ExchangeRateDTO.fromApiModel(summary);
-    } catch (e, stackTrace) {
-      logger.e(
-        'Error fetching exchange rate',
-        error: e,
-        stackTrace: stackTrace,
-      );
-      rethrow;
-    }
+      //! Convert to DTO with correct limits based on exchange direction
+      return ExchangeRateDTO.fromApiModel(summary, isCryptoToFiat: isCryptoToFiat);
+    });
   }
 
   //! Determine the type of exchange: 0 (crypto->fiat) or 1 (fiat->crypto)
