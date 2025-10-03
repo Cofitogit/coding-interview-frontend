@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/models/currency_option.dart';
 import '../../../../core/theme/app_theme.dart';
 import 'amount_field.dart';
+import 'error_message_card.dart';
 import 'exchange_button.dart';
 import 'exchange_selector.dart';
 import 'stats_section.dart';
@@ -66,12 +67,9 @@ class ExchangeCard extends StatelessWidget {
               children: <Widget>[
                 AmountField(currencyLabel: from.code, amount: amount, onChanged: onAmountChanged),
                 if (error != null)
-                  Padding(
-                    padding: const EdgeInsets.only(left: 4),
-                    child: Text(
-                      error!,
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
-                    ),
+                  ErrorMessageCard(
+                    message: error!,
+                    onRetry: isExchangeEnabled && !isExchangeLoading ? onExchange : null,
                   ),
               ],
             ),
