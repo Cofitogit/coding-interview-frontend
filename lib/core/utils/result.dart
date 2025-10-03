@@ -1,3 +1,5 @@
+import '../errors/failures.dart';
+
 sealed class Result<T> {
   const Result();
   
@@ -10,18 +12,20 @@ sealed class Result<T> {
     _ => null,
   };
   
-  String? get errorOrNull => switch (this) {
-    Failure<T>(message: final String m) => m,
+  AppFailure? get failureOrNull => switch (this) {
+    Failure<T>(failure: final AppFailure f) => f,
     _ => null,
   };
   
+  String? get errorMessageOrNull => failureOrNull?.message;
+  
   R fold<R>({
     required R Function(T value) onSuccess,
-    required R Function(String message) onFailure,
+    required R Function(AppFailure failure) onFailure,
   }) {
     return switch (this) {
       Success<T>(value: final T v) => onSuccess(v),
-      Failure<T>(message: final String m) => onFailure(m),
+      Failure<T>(failure: final AppFailure f) => onFailure(f),
     };
   }
 }
@@ -35,11 +39,12 @@ final class Success<T> extends Result<T> {
 }
 
 final class Failure<T> extends Result<T> {
-  const Failure(this.message, [this.exception]);
-  final String message;
-  final Exception? exception;
+  const Failure(this.failure);
+  final AppFailure failure;
+  
+  String get message => failure.message;
   
   @override
-  String toString() => 'Failure($message)';
+  String toString() => 'Failure(${failure.message})';
 }
 

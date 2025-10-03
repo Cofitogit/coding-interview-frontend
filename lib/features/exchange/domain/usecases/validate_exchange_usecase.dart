@@ -1,3 +1,4 @@
+import '../../../../core/errors/failures.dart';
 import '../../../../core/utils/result.dart';
 import '../entities/exchange_rate_entity.dart';
 
@@ -12,13 +13,17 @@ class ValidateExchangeUseCase {
     if (!exchangeRate.isAmountValid(amount)) {
       if (exchangeRate.minLimit != null && amount < exchangeRate.minLimit!) {
         return Failure<void>(
-          'Monto mínimo: ${exchangeRate.minLimit!.toStringAsFixed(2)} $currencyCode',
+          ValidationFailure(
+            'Monto mínimo: ${exchangeRate.minLimit!.toStringAsFixed(2)} $currencyCode',
+          ),
         );
       }
 
       if (exchangeRate.maxLimit != null && amount > exchangeRate.maxLimit!) {
         return Failure<void>(
-          'Monto máximo: ${exchangeRate.maxLimit!.toStringAsFixed(2)} $currencyCode',
+          ValidationFailure(
+            'Monto máximo: ${exchangeRate.maxLimit!.toStringAsFixed(2)} $currencyCode',
+          ),
         );
       }
     }

@@ -1,4 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../../../../core/errors/failures.dart';
 import '../../../../core/models/currency_option.dart';
 import '../../../../core/utils/result.dart';
 import '../../domain/entities/exchange_rate_entity.dart';
@@ -71,13 +72,13 @@ class ExchangeViewModel extends _$ExchangeViewModel {
           onSuccess: (_) {
             state = state.copyWith(isLoading: false, recommendation: entity, errorMessage: null);
           },
-          onFailure: (String error) {
-            state = state.copyWith(isLoading: false, recommendation: entity, errorMessage: error);
+          onFailure: (AppFailure failure) {
+            state = state.copyWith(isLoading: false, recommendation: entity, errorMessage: failure.message);
           },
         );
       },
-      onFailure: (String error) {
-        state = state.copyWith(isLoading: false, errorMessage: error, recommendation: null);
+      onFailure: (AppFailure failure) {
+        state = state.copyWith(isLoading: false, errorMessage: failure.message, recommendation: null);
       },
     );
   }
