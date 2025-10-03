@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/models/currency_option.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../core/widgets/app_button.dart';
 import 'amount_field.dart';
 import 'error_message_card.dart';
-import 'exchange_button.dart';
 import 'exchange_selector.dart';
 import 'stats_section.dart';
 
@@ -54,27 +54,41 @@ class ExchangeCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           spacing: 16,
           children: <Widget>[
-            ExchangeSelector(
-              from: from,
-              to: to,
-              onSelectFrom: onSelectFrom,
-              onSelectTo: onSelectTo,
-              onSwap: onSwap,
-            ),
+            ExchangeSelector(from: from, to: to, onSelectFrom: onSelectFrom, onSelectTo: onSelectTo, onSwap: onSwap),
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               spacing: 8,
               children: <Widget>[
                 AmountField(currencyLabel: from.code, amount: amount, onChanged: onAmountChanged),
-                if (error != null)
-                  ErrorMessageCard(
-                    message: error!,
-                    onRetry: isExchangeEnabled && !isExchangeLoading ? onExchange : null,
+                AnimatedSize(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 250),
+                    opacity: error != null ? 1.0 : 0.0,
+                    child: error != null
+                        ? ErrorMessageCard(
+                            message: error!,
+                            onRetry: isExchangeEnabled && !isExchangeLoading ? onExchange : null,
+                          )
+                        : const SizedBox.shrink(),
                   ),
+                ),
               ],
             ),
             const StatsSection(),
-            ExchangeButton(onPressed: onExchange, enabled: isExchangeEnabled, isLoading: isExchangeLoading),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: AppButton(
+                    label: 'Cambiar',
+                    enabled: isExchangeEnabled,
+                    isLoading: isExchangeLoading,
+                    onPressed: onExchange,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),

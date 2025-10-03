@@ -1,6 +1,7 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:riverpod/riverpod.dart';
 import 'package:eldorado_challenge/core/errors/failures.dart';
 import 'package:eldorado_challenge/core/models/currency_option.dart';
 import 'package:eldorado_challenge/core/utils/result.dart';
@@ -39,7 +40,7 @@ void main() {
 
     // Create container with overridden providers
     container = ProviderContainer(
-      overrides: [
+      overrides: <Override>[
         getExchangeRateUseCaseProvider.overrideWithValue(mockGetExchangeRate),
         validateExchangeUseCaseProvider.overrideWithValue(mockValidateExchange),
       ],
