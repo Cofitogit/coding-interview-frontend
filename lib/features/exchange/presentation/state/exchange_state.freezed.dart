@@ -146,8 +146,8 @@ return $default(_that.fromCurrency,_that.toCurrency,_that.amount,_that.isLoading
 /// @nodoc
 
 
-class _ExchangeState implements ExchangeState {
-  const _ExchangeState({required this.fromCurrency, required this.toCurrency, this.amount = '', this.isLoading = false, this.recommendation, this.errorMessage});
+class _ExchangeState extends ExchangeState {
+  const _ExchangeState({required this.fromCurrency, required this.toCurrency, this.amount = '', this.isLoading = false, this.recommendation, this.errorMessage}): super._();
   
 
 @override final  CurrencyOption? fromCurrency;

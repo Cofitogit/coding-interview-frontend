@@ -5,7 +5,8 @@ import '../../../exchange/domain/entities/exchange_rate_entity.dart';
 part 'exchange_state.freezed.dart';
 
 @freezed
-class ExchangeState with _$ExchangeState {
+abstract class ExchangeState with _$ExchangeState {
+  
   const factory ExchangeState({
     required CurrencyOption? fromCurrency,
     required CurrencyOption? toCurrency,
@@ -14,6 +15,7 @@ class ExchangeState with _$ExchangeState {
     ExchangeRateEntity? recommendation,
     String? errorMessage,
   }) = _ExchangeState;
+  const ExchangeState._();
 }
 
 // ==================== Computed Properties ====================
