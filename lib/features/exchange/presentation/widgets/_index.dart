@@ -1,7 +1,6 @@
 export 'amount_field.dart';
 export 'chip_label.dart';
 export 'error_message_card.dart';
-export 'exchange_button.dart';
 export 'exchange_card.dart';
 export 'exchange_selector.dart';
 export 'hero_circle.dart';
