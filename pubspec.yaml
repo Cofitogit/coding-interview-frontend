@@ -29,9 +29,6 @@ dependencies:
   
   # UI
   loading_animation_widget: ^1.3.0
-  
-  #! Legacy (TODO: Remove after migration)
-  provider: ^6.1.5+1
 
 dev_dependencies:
   flutter_test:
