@@ -41,7 +41,7 @@ final class ExchangeViewModelProvider
   }
 }
 
-String _$exchangeViewModelHash() => r'9ba47fa9d504f474294eb2f2e4a1d7ffb98ad803';
+String _$exchangeViewModelHash() => r'334340755a9f1adec5c1ed2d5d38cdfda2b45337';
 
 abstract class _$ExchangeViewModel extends $Notifier<ExchangeState> {
   ExchangeState build();
