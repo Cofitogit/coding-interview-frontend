@@ -11,12 +11,17 @@ class ExchangeRateDTO {
     this.maxLimit,
   });
 
-  factory ExchangeRateDTO.fromApiModel(ExchangeRecommendationSummary summary) {
+  factory ExchangeRateDTO.fromApiModel(
+    ExchangeRecommendationSummary summary, {
+    required bool isCryptoToFiat,
+  }) {
+    final CurrencyLimits? limits = summary.limitsForExchange(isCryptoToFiat: isCryptoToFiat);
+    
     return ExchangeRateDTO(
       rate: summary.fiatToCryptoRate,
       estimatedMinutes: summary.estimatedMinutes ?? 0.0,
-      minLimit: summary.cryptoLimits?.minLimit,
-      maxLimit: summary.cryptoLimits?.maxLimit,
+      minLimit: limits?.minLimit,
+      maxLimit: limits?.maxLimit,
     );
   }
 
